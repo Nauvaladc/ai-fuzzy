@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fuzzy Tsukamoto - Kelayakan Kredit</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Penilaian Kelayakan Kredit</h1>
+      <p>Fuzzy Tsukamoto (tanpa framework)</p>
+    </header>
+
+    <section class="mode-switch">
+      <label class="switch-label">
+        <input type="checkbox" id="modeToggle" />
+        <span>MODE ADMIN</span>
+      </label>
+      <small>Matikan untuk MODE BASIC.</small>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="customerTab">Customer</button>
+      <button class="tab-button" data-tab="adminTab" id="adminTabButton">Admin</button>
+    </nav>
+
+    <main>
+      <section id="customerTab" class="tab-content active">
+        <h2>Customer Input</h2>
+        <form id="creditForm">
+          <div class="grid">
+            <label>
+              Income (juta/bulan)
+              <input type="number" id="incomeInput" min="0" step="0.1" required />
+            </label>
+            <label>
+              Loan (juta)
+              <input type="number" id="loanInput" min="0" step="0.1" required />
+            </label>
+            <label>
+              Tenor (bulan)
+              <input type="number" id="tenorInput" min="1" step="1" required />
+            </label>
+            <label>
+              Collateral (juta)
+              <input type="number" id="collateralInput" min="0" step="0.1" required />
+            </label>
+          </div>
+          <button type="submit" class="primary">Hitung Kelayakan</button>
+        </form>
+
+        <div class="results" id="resultBox">
+          <h3>Hasil</h3>
+          <div class="result-grid">
+            <div>
+              <span class="label">Ratio (%):</span>
+              <span id="ratioValue">-</span>
+            </div>
+            <div>
+              <span class="label">Coverage (%):</span>
+              <span id="coverageValue">-</span>
+            </div>
+            <div>
+              <span class="label">Skor Z:</span>
+              <span id="scoreValue">-</span>
+            </div>
+            <div>
+              <span class="label">Keputusan:</span>
+              <span id="decisionValue">-</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="adminTab" class="tab-content">
+        <div class="admin-header">
+          <h2>Rule Base (Admin)</h2>
+          <div class="admin-actions">
+            <button id="addRuleButton" type="button">Tambah Rule</button>
+            <button id="resetRuleButton" type="button" class="secondary">Reset Default</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Income</th>
+                <th>Ratio</th>
+                <th>Coverage</th>
+                <th>Consequent</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="rulesTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
