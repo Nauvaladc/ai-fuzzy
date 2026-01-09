@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penilaian Kelayakan Kredit - Fuzzy Tsukamoto</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Penilaian Kelayakan Kredit</h1>
+        <p class="subtitle">Metode Fuzzy Tsukamoto (tanpa framework)</p>
+      </header>
+
+      <section class="mode-bar">
+        <div class="mode-toggle">
+          <span>Mode:</span>
+          <button id="modeBasic" class="mode-button active" type="button">
+            Basic
+          </button>
+          <button id="modeAdmin" class="mode-button" type="button">
+            Admin
+          </button>
+        </div>
+        <div class="mode-hint">Mode Admin untuk mengatur rule base.</div>
+      </section>
+
+      <nav class="tabs">
+        <button class="tab-button active" data-tab="customer" type="button">
+          Customer
+        </button>
+        <button class="tab-button" data-tab="admin" type="button">Admin</button>
+      </nav>
+
+      <section class="tab-panel active" id="tab-customer">
+        <div class="grid">
+          <form id="customerForm" class="card">
+            <h2>Input Customer</h2>
+            <label>
+              Income (juta/bulan)
+              <input type="number" id="income" min="0" step="0.01" required />
+            </label>
+            <label>
+              Loan (juta)
+              <input type="number" id="loan" min="0" step="0.01" required />
+            </label>
+            <label>
+              Tenor (bulan)
+              <input type="number" id="tenor" min="1" step="1" required />
+            </label>
+            <label>
+              Collateral (juta)
+              <input
+                type="number"
+                id="collateral"
+                min="0"
+                step="0.01"
+                required
+              />
+            </label>
+            <button type="submit">Hitung Kelayakan</button>
+          </form>
+
+          <div class="card">
+            <h2>Hasil</h2>
+            <div class="result">
+              <div>
+                <span class="label">Ratio (%)</span>
+                <span id="ratioValue">-</span>
+              </div>
+              <div>
+                <span class="label">Coverage (%)</span>
+                <span id="coverageValue">-</span>
+              </div>
+              <div>
+                <span class="label">Skor Z</span>
+                <span id="scoreValue">-</span>
+              </div>
+              <div class="decision" id="decisionValue">-</div>
+            </div>
+            <div class="note">
+              <strong>Interpretasi:</strong> Layak jika skor &ge; 64.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-admin">
+        <div class="card">
+          <div class="admin-header">
+            <div>
+              <h2>Rule Base</h2>
+              <p>Tambah, ubah, atau hapus rule fuzzy di bawah.</p>
+            </div>
+            <div class="admin-actions">
+              <button id="addRule" type="button">Tambah Rule</button>
+              <button id="resetRule" type="button" class="secondary">
+                Reset Default
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Income</th>
+                  <th>Ratio</th>
+                  <th>Coverage</th>
+                  <th>Consequent</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="ruleTable"></tbody>
+            </table>
+          </div>
+          <p class="note">Rules tersimpan otomatis ke localStorage.</p>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
